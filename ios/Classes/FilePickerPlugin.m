@@ -493,7 +493,10 @@ didPickDocumentsAtURLs:(NSArray<NSURL *> *)urls{
                         NSData *data = [ImageUtils imageFromImage:convertedImageData withMetaData:metaData];
                         //Save jpeg
                         NSString * filenameWithoutExtension = [filename stringByDeletingPathExtension];
-                        NSString * tmpFile = [NSTemporaryDirectory() stringByAppendingPathComponent:[filenameWithoutExtension stringByAppendingString:@".jpeg"]];
+                        NSUInteger * randomFileAppendage = arc4random_uniform(10000);
+                        NSString * randomFileAppendageAsString = [NSString stringWithFormat:@"%i", randomFileAppendage];
+
+                        NSString * tmpFile = [NSTemporaryDirectory() stringByAppendingPathComponent:[filenameWithoutExtension stringByAppendingString:[randomFileAppendageAsString stringByAppendingString:@".jpeg"]]];
                         cachedUrl = [NSURL fileURLWithPath: tmpFile];
 
                         if([fileManager fileExistsAtPath:tmpFile]) {
